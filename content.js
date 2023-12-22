@@ -159,9 +159,8 @@ async function handleVSBProfessorInfo(element, professorName) {
 
 // monitor VSB prof names
 function monitorProfessorNames() {
-  const professorElements = document.querySelectorAll(
-    '.rightnclear[title="Instructor(s)"]'
-  );
+  const professorElements = document.querySelectorAll('div.d-flex .form-check-label');
+
   professorElements.forEach((element) => {
     const professorName = element.textContent.trim();
     const selkey = getSelkey(element);
@@ -182,21 +181,19 @@ function getSelkey(element) {
 }
 
 // YU course page logic
-const professorLinks = document.querySelectorAll('td[width="15%"] a');
-professorLinks.forEach((element) => {
-  const professorName = element.textContent.trim();
+const professorLabels = document.querySelectorAll('div.d-flex .form-check-label');
+professorLabels.forEach((element) => {
+  const professorName = element.textContent.split(':')[1].trim(); // Extract professor name
   handleYUProfessorInfo(element, professorName);
 });
-
 
 // observer stuff
 const observer = new MutationObserver(() => {
   monitorProfessorNames();
 });
+const config = { childList: true, subtree: true };
 
-const professorElements = document.querySelectorAll(
-  '.rightnclear[title="Instructor(s)"]'
-);
+const professorElements = document.querySelectorAll('div.d-flex .form-check-label');
 
 const handleProfessorElement = (element) => {
   if (element.classList.contains("prof-info-added")) {
@@ -215,7 +212,7 @@ const legendBoxObserver = new MutationObserver((mutationsList) => {
   for (const mutation of mutationsList) {
     if (mutation.type === "childList") {
       const addedProfessorElements = document.querySelectorAll(
-        '.rightnclear[title="Instructor(s)"]:not(.prof-info-added)'
+        '"div.d-flex .form-check-label"]:not(.prof-info-added)'
       );
       addedProfessorElements.forEach(handleProfessorElement);
       break;
