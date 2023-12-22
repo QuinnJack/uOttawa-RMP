@@ -4,7 +4,7 @@
   "description": "RMP extension for YorkU's course page.",
   "version": "1.2.6",
   "icons": { "128": "assets/icon128.png" },
-  "permissions": ["activeTab", "webRequest", "https://w2prod.sis.yorku.ca/*", "https://schedulebuilder.yorku.ca/*", "https://www.ratemyprofessors.com/*"],
+  "permissions": ["activeTab", "webRequest", "https://www.ratemyprofessors.com", "https://uschedule.me"],
   "optional_permissions": ["webNavigation", "tabs"],
   "background": {
     "service_worker": "background.js"
@@ -12,7 +12,7 @@
   "event_page": "event.html",
   "content_scripts": [
     {
-      "matches": ["https://w2prod.sis.yorku.ca/*", "https://schedulebuilder.yorku.ca/*"],
+      "matches": ["https://uschedule.me", "https://www.ratemyprofessors.com"],
       "js": ["content.js"]
     }
   ]
